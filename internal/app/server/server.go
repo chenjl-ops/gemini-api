@@ -59,13 +59,13 @@ func StartServer() error {
 
 // Run 启动服务
 func (s *server) Run() error {
-	port := fmt.Sprintf(":%d", 8080)
+	port := fmt.Sprintf(":%d", 8888)
 	return s.App.Run(port)
 }
 
 // GracefulRun 优雅启动服务
 func (s *server) GracefulRun() error {
-	port := fmt.Sprintf(":%d", 8080)
+	port := fmt.Sprintf(":%d", 8888)
 
 	srv := &http.Server{
 		Addr:    port,
