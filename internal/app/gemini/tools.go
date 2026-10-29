@@ -28,9 +28,13 @@ func (r *InteractionResponse) Text() string {
 }
 
 // CallGeminiInteraction 核心方法
-func CallGeminiInteraction(apiKey, prompt string) (string, error) {
+func CallGeminiInteraction(apiKey, prompt, modelName string) (string, error) {
 	if apiKey == "" {
 		return "", fmt.Errorf("GEMINI_API_KEY 不能为空")
+	}
+
+	if modelName == "" {
+		modelName = "gemini-3.1-flash-lite"
 	}
 
 	client := &http.Client{
@@ -41,7 +45,8 @@ func CallGeminiInteraction(apiKey, prompt string) (string, error) {
 
 	// 使用 InteractionRequest 结构体
 	reqPayload := InteractionRequest{
-		Model: "gemini-3-flash-preview",
+		//Model: "gemini-3.1-flash-lite",
+		Model: modelName,
 		Input: prompt,
 	}
 

@@ -10,7 +10,6 @@ func WithError(c *gin.Context, code int, message any) {
 		"code":          code,
 		"error_message": message,
 	})
-	return
 }
 
 func WithResult(c *gin.Context, code int, message string, data any) {

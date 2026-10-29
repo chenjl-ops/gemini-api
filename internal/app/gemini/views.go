@@ -11,14 +11,18 @@ import (
 func GetGeminiInteraction(c *gin.Context) {
 	var req AiRequest
 
-	if err := c.ShouldBindJSON(&req); err != nil {
-		response.WithError(c, http.StatusBadRequest, fmt.Sprintf("invalid input %v", err))
-	} else {
-		results, err := CallGeminiInteraction(req.ApiKey, req.Prompt)
+	if err := c.ShouldBindJSON(&req); err == nil {
+		results, err := CallGeminiInteraction(req.ApiKey, req.Prompt, req.ModelName)
+		fmt.Println(results, err)
+
 		if err != nil {
 			response.WithError(c, http.StatusInternalServerError, err.Error())
+			return
 		}
 		response.WithResult(c, http.StatusOK, "success", results)
+	} else {
+		response.WithError(c, http.StatusBadRequest, fmt.Sprintf("invalid input %v", err))
+		return
 	}
 
 }
